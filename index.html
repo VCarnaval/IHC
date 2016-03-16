@@ -1,69 +1,173 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>ihcProject by VCarnaval</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      .wrap { max-width: 75em; min-height: 40em; height:100%; width:100%; margin: 0 auto; padding-top: 2.5%;}
+      #map-canvas { height: 90%; }
+    </style>
+	
+	<!-- CARREGANDO O API DO GOOGLE MAPS -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true">
+	</script>
+	
+	<!-- FUNCAO JAVASCRIPT PARA CARREGAR O MAPA E CONFIGURAR ALGUMAS OPCOES BASICAS DISPONIVEIS NA API DO GOOGLE MAPS -->
+    <script type="text/javascript">
+      var map;
+      var centerPos = new google.maps.LatLng(-23.2146027,-45.8854213); // INSERIMOS A LATITUDE E LONGITUDE DA POSICAO DO MAPA QUE SELECIONAMOS
+      var zoomLevel = 12;
+      function initialize() {
+        var mapOptions = {
+          center: centerPos,
+          zoom: zoomLevel
+        };
+        map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
+		
+	/* ADICIONANDO AS LOCALIZACOES NO ARRAY
+		
+		A PARTIR DE 10 ACIDENTES (VERMELHO)*/		
+		var locations = [
+		['END.: AVENIDA CIDADE JARDIM\n', 'TOTAL DE ACIDENTES: 55\n', 'ACIDENTES FATAIS: 4', -23.259470, -45.886206],
+		['END.: AVENIDA TANCREDO NEVES\n', 'TOTAL DE ACIDENTES: 50\n', 'ACIDENTES FATAIS: 2', -23.180680, -45.810883],
+		['END.: AVENIDA PRESIDENTE JUSCELINO KUBISTCHEK\n', 'TOTAL DE ACIDENTES: 48\n', 'ACIDENTES FATAIS: 0', -23.180277, -45.848727],
+		['END.: AVENIDA ANDROMEDA\n', 'TOTAL DE ACIDENTES: 43\n', 'ACIDENTES FATAIS: 1', -23.218340, -45.893340],
+		['END.: AVENIDA PEDRO FRIGGI\n', 'TOTAL DE ACIDENTES: 35\n', 'ACIDENTES FATAIS: 0',  -23.175370, -45.822697],
+		['END.: AVENIDA DOS ASTRONAUTAS\n', 'TOTAL DE ACIDENTES: 32\n', 'ACIDENTES FATAIS: 2', -23.197541, -45.865152],
+		['END.: AVENIDA BENEDITO MATARAZZO\n', 'TOTAL DE ACIDENTES: 31\n', 'ACIDENTES FATAIS: 0', -23.185332, -45.853204],
+		['END.: AVENIDA ENGENHEIRO SEBASTIAO GUALBERTO\n', 'TOTAL DE ACIDENTES: 29\n', 'ACIDENTES FATAIS: 3', -23.174224, -45.884654 ],
+		['END.: AVENIDA TEOTONIO VILELA\n', 'TOTAL DE ACIDENTES: 29\n', 'ACIDENTES FATAIS: 3', -23.186411, -45.878267],
+		['END.: AVENIDA GENERAL MOTORS\n', 'TOTAL DE ACIDENTES: 29\n', 'ACIDENTES FATAIS: 0',  -23.165537, -45.813299],
+		['END.: AVENIDA FLORESTAN FERNANDES\n', 'TOTAL DE ACIDENTES: 28\n', 'ACIDENTES FATAIS: 1', -23.212425, -45.900474],
+		['END.: AVENIDA SALINAS\n', 'TOTAL DE ACIDENTES: 27\n', 'ACIDENTES FATAIS: 1', -23.251337, -45.889812],
+		['END.: ESTRADA DOM JOSE ANTONIO DO COUTO\n', 'TOTAL DE ACIDENTES: 25\n', 'ACIDENTES FATAIS: 2', -23.214724, -45.803198],
+		['END.: AVENIDA DOS EVANGELICOS\n', 'TOTAL DE ACIDENTES: 24\n', 'ACIDENTES FATAIS: 2', -23.270545, -45.899516],  
+		["END.: AVENIDA DR. NELSON D'AVILA\n", 'TOTAL DE ACIDENTES: 24\n', 'ACIDENTES FATAIS: 0',  -23.195891, -45.885961],
+		['END.: RUA BACABAL\n', 'TOTAL DE ACIDENTES: 22\n', 'ACIDENTES FATAIS: 0',  -23.241834, -45.906556],
+		['END.: AVENIDA BENEDITO FRIGGI\n', 'TOTAL DE ACIDENTES: 20\n', 'ACIDENTES FATAIS: 1', -23.170962, -45.811593],  
+		['END.: AVENIDA RUI BARBOSA\n', 'TOTAL DE ACIDENTES: 20\n', 'ACIDENTES FATAIS: 0',  -23.170017, -45.891926],
+		['END.: AVENIDA JOAO RODOLFO CASTELLI\n', 'TOTAL DE ACIDENTES: 19\n', 'ACIDENTES FATAIS: 0',  -23.249142, -45.823243],
+		['END.: ESTRADA JUCA DE CARVALHO\n', 'TOTAL DE ACIDENTES: 19\n', 'ACIDENTES FATAIS: 0',  -23.150386, -45.914197],
+		['END.: RUA CARAVELAS\n', 'TOTAL DE ACIDENTES: 19\n', 'ACIDENTES FATAIS: 0',  -23.257239, -45.916476],
+		['END.: AVENIDA JORGE ZARUR\n', 'TOTAL DE ACIDENTES: 17\n', 'ACIDENTES FATAIS: 0',  -23.209998, -45.898435],
+		['END.: AVENIDA OURO FINO\n', 'TOTAL DE ACIDENTES: 17\n', 'ACIDENTES FATAIS: 0',  -23.250171, -45.888860],
+		['END.: AVENIDA JOSE MARCONDES PEREIRA\n', 'TOTAL DE ACIDENTES: 16\n', 'ACIDENTES FATAIS: 1', -23.173355, -45.895018],
+		['END.: AVENIDA PERSEU\n', 'TOTAL DE ACIDENTES: 16\n', 'ACIDENTES FATAIS: 0',  -23.228145, -45.890827],
+		['END.: AVENIDA MARIO COVAS JUNIOR\n', 'TOTAL DE ACIDENTES: 15\n', 'ACIDENTES FATAIS: 2',  -23.215939, -45.887096],
+		['END.: AVENIDA JOAO MARSON\n', 'TOTAL DE ACIDENTES: 15\n', 'ACIDENTES FATAIS: 1', -23.179318, -45.864861],
+		['END.: AVENIDA GEORGE EASTMAN\n', 'TOTAL DE ACIDENTES: 15\n', 'ACIDENTES FATAIS: 1', -23.243852, -45.917923],
+		['END.: AVENIDA ENGENHEIRO FRANCISCO JOSE LONGO\n', 'TOTAL DE ACIDENTES: 15\n', 'ACIDENTES FATAIS: 0', -23.200850, -45.888875],
+		['END.: AVENIDA SEBASTIAO HENRIQUE DA CUNHA PONTES\n', 'TOTAL DE ACIDENTES: 14\n', 'ACIDENTES FATAIS: 0', -23.218834, -45.898320],
+		['END.: RUA ITABAIANA \n', 'TOTAL DE ACIDENTES: 14\n', 'ACIDENTES FATAIS: 0', -23.248056, -45.915510],
+		['END.: AVENIDA LINEU DE MOURA\n', 'TOTAL DE ACIDENTES: 13\n', 'ACIDENTES FATAIS: 1', -23.195296, -45.919458],
+		['END.: AVENIDA BRIGADEIRO FARIA LIMA\n', 'TOTAL DE ACIDENTES: 13\n', 'ACIDENTES FATAIS: 0', -23.224859, -45.855921],
+		['END.: AVENIDA DOUTOR JOAO BATISTA SOARES DE QUEIROZ JUNIOR\n', 'TOTAL DE ACIDENTES: 13\n', 'ACIDENTES FATAIS: 0', -23.223961, -45.920614],
+		['END.: AVENIDA ANGELO BELMIRO PINTUS\n', 'TOTAL DE ACIDENTES: 12\n', 'ACIDENTES FATAIS: 1', -23.276882, -45.897184],
+		['END.: AVENIDA BARBACENA\n', 'TOTAL DE ACIDENTES: 12\n', 'ACIDENTES FATAIS: 1', -23.172249, -45.845276],
+		['END.: ESTRADA GLAUDISTON PEREIRA DE OLIVEIRA\n', 'TOTAL DE ACIDENTES: 12\n', 'ACIDENTES FATAIS: 1', -23.222800, -45.847685],
+		['END.: AVENIDA PICO DAS AGULHAS NEGRAS\n', 'TOTAL DE ACIDENTES: 12\n', 'ACIDENTES FATAIS: 0', -23.161614, -45.915507],
+		['END.: AVENIDA SAO JOAO\n', 'TOTAL DE ACIDENTES: 12\n', 'ACIDENTES FATAIS: 0', -23.206812, -45.907219],
+		['END.: AVENIDA CASSIOPEIA\n', 'TOTAL DE ACIDENTES: 11\n', 'ACIDENTES FATAIS: 1', -23.229236, -45.887663],
+		['END.: ESTRADA DO IMPERADOR\n', 'TOTAL DE ACIDENTES: 11\n', 'ACIDENTES FATAIS: 1', -23.272231, -45.904229],
+		['END.: AVENIDA DOUTOR JOAO GUILHERMINO\n', 'TOTAL DE ACIDENTES: 11\n', 'ACIDENTES FATAIS: 0', -23.190891, -45.888405],
+		['END.: RUA DOLZANI RICARDO\n', 'TOTAL DE ACIDENTES: 11\n', 'ACIDENTES FATAIS: 0', -23.186872, -45.884557],
+		['END.: AVENIDA ALBERTO RENART\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 2', -23.172497, -45.791967],
+		['END.: AVENIDA ADONIAS DA SILVA\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 1', -23.270160, -45.893878],
+		['END.: AVENIDA SHISHIMA HIFUMI\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 1', -23.204740, -45.950492],
+		['END.: AVENIDA CASSIANO RICARDO\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.220899, -45.911062],
+		['END.: AVENIDA IGUAPE\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.235087, -45.887453],
+		['END.: AVENIDA JOAO DE OLIVEIRA E SILVA\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.273701, -45.900511],
+		['END.: RUA JOAO MIACCI\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.274153, -45.886534],
+		['END.: AVENIDA SAO JOSE\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.178854, -45.889502],
+		['END.: RUA ICATU\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.246549, -45.911565],
+		['END.: RUA PARAIBUNA\n', 'TOTAL DE ACIDENTES: 10\n', 'ACIDENTES FATAIS: 0', -23.201642, -45.886096]
+		];
+  
+  // CAMINHO DO ÍCONE QUE SUBSTITUIRA O MARCADOR PADRAO DO GOOGLE
+	var image = 'images/marker_car_red.png';
+  
+  // LOOP PARA AGRUPAR OS MARCADORES NO MAPA
+	for (i = 0; i < locations.length; i++) {  
+		marker = new google.maps.Marker({
+		position: new google.maps.LatLng(locations[i][3], locations[i][4]), // ADICIONANDO O MARCADOR NO MAPA DE ACORDO COM A LATITUDE E LONGITUDE
+		title: locations[i][0] + locations[i][1] + locations[i][2], //INSERINDO OS DADOS NO MARCADOR REFERENTE AO ACIDENTE
+		map: map,
+		icon: image
+	});
+	}
 
+		//ENTRE  3 A 9 ACIDENTES (AMARELO)
+		var locations = [
+		['END.: RUA CANDEIAS\n', 'TOTAL DE ACIDENTES: 9\n', 'ACIDENTES FATAIS: 1', -23.254118, -45.909641],
+		['END.: AVENIDA BENEDITO BENTO\n', 'TOTAL DE ACIDENTES: 9\n', 'ACIDENTES FATAIS: 0', -23.250881, -45.904255],
+		['END.: AVENIDA OLIVO GOMES\n', 'TOTAL DE ACIDENTES: 9\n', 'ACIDENTES FATAIS: 0', -23.169223, -45.891467],
+		['END.: RUA GISELE MARTINS\n', 'TOTAL DE ACIDENTES: 9\n', 'ACIDENTES FATAIS: 0', -23.254796, -45.898539],
+		['END.: RUA MAR DEL PLATA\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 1', -23.234773, -45.899025],
+		['END.: RUA MONTE AZUL\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 1', -23.250649, -45.925704],
+		['END.: AVENIDA ADILSON JOSE DA CRUZ\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 0', -23.274694, -45.887358],
+		['END.: AVENIDA DAS ROSAS\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 0', -23.175414, -45.825285],
+		['END.: ESTRADA DO JAGUARI\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 0', -23.156782, -45.905309],
+		['END.: RUA MOXOTO\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 0', -23.251785, -45.925024],
+		['END.: RUA VILACA\n', 'TOTAL DE ACIDENTES: 8\n', 'ACIDENTES FATAIS: 0', -23.183427, -45.884270],
+		['END.: AVENIDA LEONOR DE ALMEIDA RIBEIRO SOUTO\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 1', -23.266458, -45.909756],
+		['END.: AVENIDA PEDRO ALVARES CABRAL\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 1', -23.188527, -45.874303],
+		['END.: AVENIDA DOUTOR EDUARDO CURY\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.201817, -45.910251],
+		['END.: AVENIDA MARECHAL HENRIQUE TEIXEIRA LOTT\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.207884, -45.886597],
+		['END.: AVENIDA MARIA DE LOURDES MEDEIROS ASSIS\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.272686, -45.889977],
+		['END.: ESTRADA NELSON TAVARES DA SILVA\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.198697, -45.781028],
+		['END.: RUA CARLOS NUNES DE PAULA\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.280611, -45.895835],
+		['END.: RUA GENESIA BERARDINELI TARANTINO\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.191970, -45.876206],
+		['END.: RUA JOSE COBRA\n', 'TOTAL DE ACIDENTES: 7\n', 'ACIDENTES FATAIS: 0', -23.245916, -45.914442],
+		['END.: AVENIDA GUADALUPE\n', 'TOTAL DE ACIDENTES: 6\n', 'ACIDENTES FATAIS: 1', -23.231869, -45.897670]
+		];
+  
+  var image = 'images/marker_car_yellow.png';
+
+	for (i = 0; i < locations.length; i++) {  
+		marker = new google.maps.Marker({
+		position: new google.maps.LatLng(locations[i][3], locations[i][4]),
+		title: locations[i][0] + locations[i][1] + locations[i][2],
+		map: map,
+		icon: image
+	});
+	}
+
+		//ABAIXO DE 3 ACIDENTES (VERDE)
+		
+		var locations = [
+		['END.: AVENIDA JOSE RIBEIRO BASTOS\n', 'TOTAL DE ACIDENTES: 3\n', 'ACIDENTES FATAIS: 1', -23.278744, -45.897818],
+		['END.: PONTE MARIA PEREGRINA\n', 'TOTAL DE ACIDENTES: 3\n', 'ACIDENTES FATAIS: 1', -23.162320, -45.903029],
+		['END.: AVENIDA ANCHIETA\n', 'TOTAL DE ACIDENTES: 3\n', 'ACIDENTES FATAIS: 0', -23.192699, -45.899224],
+		['END.: AVENIDA ANTONIO JOAQUIM DE ALVARENGA FILHO\n', 'TOTAL DE ACIDENTES: 3\n', 'ACIDENTES FATAIS: 0', -23.276387, -45.891704],
+		['END.: AVENIDA JOAO BASSI\n', 'TOTAL DE ACIDENTES: 2\n', 'ACIDENTES FATAIS: 0', -23.183696, -45.790403],
+		['END.: AVENIDA JOSE PEDRO\n', 'TOTAL DE ACIDENTES: 2\n', 'ACIDENTES FATAIS: 0', -23.169630, -45.813794],
+		['END.: AVENIDA LIVIO VENEZIANI\n', 'TOTAL DE ACIDENTES: 2\n', 'ACIDENTES FATAIS: 0', -23.210073, -45.850332],
+		['END.: AVENIDA MARIO FRIGI\n', 'TOTAL DE ACIDENTES: 2\n', 'ACIDENTES FATAIS: 0', -23.256938, -45.897262],
+		['END.: AVENIDA PAPA JOAO PAULO II\n', 'TOTAL DE ACIDENTES: 2\n', 'ACIDENTES FATAIS: 0', -23.202731, -45.951391],
+		['END.: AVENIDA RIO BUQUIRA\n', 'TOTAL DE ACIDENTES: 2\n', 'ACIDENTES FATAIS: 0', -23.143234, -45.916470],
+		['END.: RUA DAS GLICINIAS\n', 'TOTAL DE ACIDENTES: 1\n', 'ACIDENTES FATAIS: 0', -23.174404, -45.825482]
+		];
+		
+		var image = 'images/marker_car_green.png';
+
+	for (i = 0; i < locations.length; i++) {  
+		marker = new google.maps.Marker({
+		position: new google.maps.LatLng(locations[i][3], locations[i][4]),
+		title: locations[i][0] + locations[i][1] + locations[i][2],
+		map: map,
+		icon: image
+	});
+	}
+	
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
   </head>
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/VCarnaval/IHC">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/VCarnaval/IHC/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/VCarnaval/IHC/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
-
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
-          <h1>ihcProject</h1>
-          <p>Projeto de Interação Humano Computador</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/VCarnaval">VCarnaval</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
-
-        <p>`<code>### Welcome to GitHub Pages.
-This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here [using GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/), select a template crafted by a designer, and publish. After your page is generated, you can check out the new</code>gh-pages` branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
-
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-      </section>
-
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+  <div class="wrap">
+    <div id="map-canvas"></div>
+  </div>
   </body>
 </html>
