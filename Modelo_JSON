@@ -1,0 +1,16 @@
+[
+  {
+    "end": "XXXXXXX",
+    "total_acidentes": XX,
+    "acidentes_fatais": XX,
+    "lat": XXXXXXX,
+    "long": XXXXXXX
+  },
+  {
+    "END": "XXXXXXX",
+    "TOTAL_DE_ACIDENTES": XX,
+    "ACIDENTES_FATAIS": XX,
+    "latitude": XXXXXXX,
+    "longitude": XXXXXXX
+  }
+]
