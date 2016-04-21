@@ -1,0 +1,154 @@
+/*
+--A PARTIR DE 3 A 9 ACIDENTES (AMARELO)--
+https://api.myjson.com/bins/4qkjm
+*/
+
+[
+  {
+    "end": " END.: RUA CANDEIAS",
+    "total_acidentes": 9,
+    "acidentes_fatais": 1,
+    "lat": -23.254118,
+    "long": -45.909641
+  },
+  {
+    "end": " END.: AVENIDA BENEDITO BENTO",
+    "total_acidentes": 9,
+    "acidentes_fatais": 0,
+    "lat": -23.250881,
+    "long": -45.904255
+  },
+  {
+    "end": " END.: AVENIDA OLIVO GOMES",
+    "total_acidentes": 9,
+    "acidentes_fatais": 0,
+    "lat": -23.169223,
+    "long": -45.891467
+  },
+  {
+    "end": " END.: RUA GISELE MARTINS",
+    "total_acidentes": 9,
+    "acidentes_fatais": 0,
+    "lat": -23.254796,
+    "long": -45.898539
+  },
+  {
+    "end": " END.: RUA MAR DEL PLATA",
+    "total_acidentes": 8,
+    "acidentes_fatais": 1,
+    "lat": -23.234773,
+    "long": -45.899025
+  },
+  {
+    "end": " END.: RUA MONTE AZUL",
+    "total_acidentes": 8,
+    "acidentes_fatais": 1,
+    "lat": -23.250649,
+    "long": -45.925704
+  },
+  {
+    "end": " END.: AVENIDA ADILSON JOSE DA CRUZ",
+    "total_acidentes": 8,
+    "acidentes_fatais": 0,
+    "lat": -23.274694,
+    "long": -45.887358
+  },
+  {
+    "end": " END.: AVENIDA DAS ROSAS",
+    "total_acidentes": 8,
+    "acidentes_fatais": 0,
+    "lat": -23.175414,
+    "long": -45.825285
+  },
+  {
+    "end": " END.: ESTRADA DO JAGUARI",
+    "total_acidentes": 8,
+    "acidentes_fatais": 0,
+    "lat": -23.156782,
+    "long": -45.905309
+  },
+  {
+    "end": " END.: RUA MOXOTO",
+    "total_acidentes": 8,
+    "acidentes_fatais": 0,
+    "lat": -23.251785,
+    "long": -45.925024
+  },
+  {
+    "end": " END.: RUA VILACA",
+    "total_acidentes": 8,
+    "acidentes_fatais": 0,
+    "lat": -23.183427,
+    "long": -45.88427
+  },
+  {
+    "end": " END.: AVENIDA LEONOR DE ALMEIDA RIBEIRO SOUTO",
+    "total_acidentes": 7,
+    "acidentes_fatais": 1,
+    "lat": -23.266458,
+    "long": -45.909756
+  },
+  {
+    "end": " END.: AVENIDA PEDRO ALVARES CABRAL",
+    "total_acidentes": 7,
+    "acidentes_fatais": 1,
+    "lat": -23.188527,
+    "long": -45.874303
+  },
+  {
+    "end": " END.: AVENIDA DOUTOR EDUARDO CURY",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.201817,
+    "long": -45.910251
+  },
+  {
+    "end": " END.: AVENIDA MARECHAL HENRIQUE TEIXEIRA LOTT",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.207884,
+    "long": -45.886597
+  },
+  {
+    "end": " END.: AVENIDA MARIA DE LOURDES MEDEIROS ASSIS",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.272686,
+    "long": -45.889977
+  },
+  {
+    "end": " END.: ESTRADA NELSON TAVARES DA SILVA",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.198697,
+    "long": -45.781028
+  },
+  {
+    "end": " END.: RUA CARLOS NUNES DE PAULA",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.280611,
+    "long": -45.895835
+  },
+  {
+    "end": " END.: RUA GENESIA BERARDINELI TARANTINO",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.19197,
+    "long": -45.876206
+  },
+  {
+    "end": " END.: RUA JOSE COBRA",
+    "total_acidentes": 7,
+    "acidentes_fatais": 0,
+    "lat": -23.245916,
+    "long": -45.914442
+  },
+  {
+    "end": " END.: AVENIDA GUADALUPE",
+    "total_acidentes": 6,
+    "acidentes_fatais": 1,
+    "lat": -23.231869,
+    "long": -45.89767
+  }
+]

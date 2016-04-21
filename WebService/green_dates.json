@@ -1,0 +1,84 @@
+/*
+--A PARTIR DE 3 A 9 ACIDENTES (AMARELO)--
+https://api.myjson.com/bins/3umuq
+*/
+
+[
+  {
+    "end": " END.: AVENIDA JOSE RIBEIRO BASTOS",
+    "total_acidentes": 3,
+    "acidentes_fatais": 1,
+    "lat": -23.278744,
+    "long": -45.897818
+  },
+  {
+    "end": " END.: PONTE MARIA PEREGRINA",
+    "total_acidentes": 3,
+    "acidentes_fatais": 1,
+    "lat": -23.16232,
+    "long": -45.903029
+  },
+  {
+    "end": " END.: AVENIDA ANCHIETA",
+    "total_acidentes": 3,
+    "acidentes_fatais": 0,
+    "lat": -23.192699,
+    "long": -45.899224
+  },
+  {
+    "end": " END.: AVENIDA ANTONIO JOAQUIM DE ALVARENGA FILHO",
+    "total_acidentes": 3,
+    "acidentes_fatais": 0,
+    "lat": -23.276387,
+    "long": -45.891704
+  },
+  {
+    "end": " END.: AVENIDA JOAO BASSI",
+    "total_acidentes": 2,
+    "acidentes_fatais": 0,
+    "lat": -23.183696,
+    "long": -45.790403
+  },
+  {
+    "end": " END.: AVENIDA JOSE PEDRO",
+    "total_acidentes": 2,
+    "acidentes_fatais": 0,
+    "lat": -23.16963,
+    "long": -45.813794
+  },
+  {
+    "end": " END.: AVENIDA LIVIO VENEZIANI",
+    "total_acidentes": 2,
+    "acidentes_fatais": 0,
+    "lat": -23.210073,
+    "long": -45.850332
+  },
+  {
+    "end": " END.: AVENIDA MARIO FRIGI",
+    "total_acidentes": 2,
+    "acidentes_fatais": 0,
+    "lat": -23.256938,
+    "long": -45.897262
+  },
+  {
+    "end": " END.: AVENIDA PAPA JOAO PAULO II",
+    "total_acidentes": 2,
+    "acidentes_fatais": 0,
+    "lat": -23.202731,
+    "long": -45.951391
+  },
+  {
+    "end": " END.: AVENIDA RIO BUQUIRA",
+    "total_acidentes": 2,
+    "acidentes_fatais": 0,
+    "lat": -23.143234,
+    "long": -45.91647
+  },
+  {
+    "end": " END.: RUA DAS GLICINIAS",
+    "total_acidentes": 1,
+    "acidentes_fatais": 0,
+    "lat": -23.174404,
+    "long": -45.825482
+  }
+]
