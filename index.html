@@ -33,13 +33,13 @@
 					$.each(data, function(i){
 					
 						if(this.total_acidentes >= 10){ //CONDICAO PARA ALTERAR A COR DOS MARCADORES
-							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/gh-pages/images/car_red.png';
+							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/master/newProject/images/car_red.png';
 						}
 						else if ((this.total_acidentes > 3) && (this.total_acidentes <= 9)){
-							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/gh-pages/images/car_yellow.png';
+							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/master/newProject/images/car_yellow.png';
 						}
 						else {
-							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/gh-pages/images/car_green.png';
+							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/master/newProject/images/car_green.png';
 						}
 					
 						marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
