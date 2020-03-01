@@ -1,65 +1,96 @@
 <!DOCTYPE html>
-<html>
-  <head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    
-	<style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      .wrap { max-width: 75em; min-height: 40em; height:100%; width:100%; margin: 0 auto; padding-top: 2.5%;}
-      #map-canvas { height: 90%; }
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização Interativa</title>
+
+    <meta name="description"
+        content="Visualização interativa dos acidentes de trânsito registrados no ano de 2014 na cidade de São José dos Campos.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+        #map .map-info-window {
+            padding: 5px 10px;
+        }
+        #map .map-info-window h3 {
+            margin-bottom: 10px;
+        }
+        #map .map-info-window p {
+            margin-bottom: 5px;
+        }
     </style>
-	
-	<!-- CARREGANDO O API DO GOOGLE MAPS -->
-    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyCvFVj8dPNcB04KtIWdB2Ej4LNdbY6DdHI"></script>
-	
-	<!-- BIBLIOTECA JQUERY -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	
-	<!-- CONFIGURANDO O MAPA E ALGUMAS OPCOES BASICAS -->
-    <script type="text/javascript">     
-	  
-		$(document).ready(function(){
-		
-			var map;
-			var centerPos = new google.maps.LatLng(-23.2146027,-45.8854213);
-			var zoomLevel = 12;			
-			var mapOptions = {center: centerPos, zoom: zoomLevel}; //DEFININDO A POSICAO INICIAL DO MAPA        
-        
-			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
-		
-			$.getJSON("https://api.myjson.com/bins/5c32y",function(data) { //BUSCANDO OS DADOS NO MYJSON
-					
-					$.each(data, function(i){
-					
-						if(this.total_acidentes >= 10){ //CONDICAO PARA ALTERAR A COR DOS MARCADORES
-							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/master/newProject/images/car_red.png';
-						}
-						else if ((this.total_acidentes > 3) && (this.total_acidentes <= 9)){
-							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/master/newProject/images/car_yellow.png';
-						}
-						else {
-							var image = 'https://raw.githubusercontent.com/VCarnaval/IHC/master/newProject/images/car_green.png';
-						}
-					
-						marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
-							position: new google.maps.LatLng(this.lat, this.long),
-							title: this.end + "\nTOTAL DE ACIDENTES: " + this.total_acidentes + "\nACIDENTES FATAIS: " + this.acidentes_fatais,
-							map: map,
-							icon: image
-						});						
-					})
-			});				
-		});
-	  
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAX6qUKec6QKlzfKKwRCmUEjs5yPt4wwWA">
     </script>
-	
-  </head>
-  
-  <body>  
-	<div class="wrap">
-		<div id="map-canvas"></div>
-	</div>	
-  </body>
-  
+
+    <script>
+
+        let map;
+
+        function initMap() {
+            const mapOptions = {
+                center: new google.maps.LatLng(-23.2146027, -45.8854213),
+                zoom: 12
+            };
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            loadMarkers();
+        }
+
+        function loadMarkers() {
+            fetch('https://api.myjson.com/bins/5c32y')
+                .then(response => response.ok ? response.json() : Promise.reject(response))
+                .then(result => result.forEach(appendMarker))
+                .catch(error => console.log('Request Failed:', error));
+
+        }
+
+        function appendMarker(address) {
+
+            let image = 'images/car_green.png';
+            if (address.total_acidentes >= 10) {
+                image = 'images/car_red.png';
+            }
+            if (address.total_acidentes > 3 && address.total_acidentes <= 9) {
+                image = 'images/car_yellow.png';
+            }
+
+            const formatStreetName = function (str) { return str.toUpperCase().replace('END.: ', '') }
+
+            let contentString = `<div class="map-info-window"><h3>${formatStreetName(address.end)}</h3><p>Total de Acidentes: ${address.total_acidentes}</p><p>Acidentes Fatais: ${address.acidentes_fatais}</p></div>`;
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            const marker = new google.maps.Marker({
+                position: new google.maps.LatLng(address.lat, address.long),
+                title: `${formatStreetName(address.end)}\nTOTAL DE ACIDENTES: ${address.total_acidentes}\nACIDENTES FATAIS: ${address.acidentes_fatais}`,
+                map: map,
+                icon: image
+            });
+
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
+        }
+
+        window.addEventListener('load', initMap);
+    </script>
+</body>
+
 </html>
