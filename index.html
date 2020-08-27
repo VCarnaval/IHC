@@ -52,7 +52,7 @@
         }
 
         function loadMarkers() {
-            fetch('https://api.myjson.com/bins/5c32y')
+            fetch('/data/database.json')
                 .then(response => response.ok ? response.json() : Promise.reject(response))
                 .then(result => result.forEach(appendMarker))
                 .catch(error => console.log('Request Failed:', error));
